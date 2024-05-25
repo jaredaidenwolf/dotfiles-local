@@ -1,0 +1,16 @@
+[color]
+  ui = auto
+[core]
+  editor = cursor
+[diff]
+  tool = kaleidoscope
+[init]
+  defaultBranch = main
+[merge]
+  tool = kaleidoscope
+[push]
+  default = current
+[user]
+  name = "Jared Aiden Wolf"
+  email = "jared@jaredaidenwolf.com"
+

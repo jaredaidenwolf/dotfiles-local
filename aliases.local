@@ -1,0 +1,25 @@
+# Bat
+alias cat="bat"
+
+# Brew
+alias bsl="brew services list"
+
+# Bundler
+alias bi="bundle install"
+alias beg="bundle exec guard"
+
+# Exa
+alias ls="eza -la --git --no-user --hyperlink"
+
+# Git
+alias gs="git status"
+alias gco="git checkout"
+alias gc="git commit"
+alias gp="git push"
+alias gpu="git pull"
+alias gb="git branch"
+alias gl="git log --pretty=colored"
+
+# PostgreSQL
+alias pg14="brew services stop postgresql@16 && brew services start postgresql@14 && brew services list"
+alias pg16="brew services stop postgresql@14 && brew services start postgresql@16 && brew services list"
