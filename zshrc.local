@@ -1,3 +1,5 @@
+export PATH="$HOME/.bin:$PATH"
+
 # Start SSH agent
 if [ -z "$SSH_AUTH_SOCK" ]; then
   eval $(ssh-agent -s)
@@ -17,5 +19,3 @@ zstyle ":completion:*" matcher-list "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=* l:|=
 
 # ASDF
 source /opt/homebrew/opt/asdf/libexec/asdf.sh
-
-export PATH="$HOME/.bin:$PATH"
