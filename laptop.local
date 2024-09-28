@@ -13,29 +13,36 @@ brew "bat"
 brew "eza"
 brew "fzf"
 brew "mas"
-brew "postgresql@15"
-brew "postgresql@16"
+brew "postgresql@17"
 brew "shellcheck"
 brew "sqlite"
+brew "the_silver_searcher"
 brew "zoxide"
 cask "1password"
 cask "airbuddy"
 cask "backblaze"
 cask "cursor"
+cask "docker"
+cask "downie"
 cask "firefox"
 cask "firefox@developer-edition"
 cask "google-chrome"
 cask "imageoptim"
 cask "kaleidoscope"
+cask "local"
+cask "ngrok"
 cask "obsidian"
 cask "postman"
 cask "raycast"
 cask "readdle-spark"
+cask "replacicon"
 cask "slack"
 cask "sublime-text"
 cask "tableplus"
+cask "transmit"
 cask "the-unarchiver"
 cask "transnomino"
+cask "utm"
 cask "warp"
 cask "zoom"
 cask "font-fira-code-nerd-font"
@@ -78,14 +85,45 @@ install_python() {
   fi
 }
 
+install_php() {
+  fancy_echo "Configuring asdf for PHP ..."
+  if [ ! -d "$HOME/.asdf" ]; then
+    brew install asdf
+    append_to_zshrc "source \"$(brew --prefix asdf)/libexec/asdf.sh\""
+    . "$ZSHRC"
+  else
+    fancy_echo "ASDF is already installed."
+  fi
+
+  # Install PHP plugin for asdf
+  if ! asdf plugin-list | grep -Fq "php"; then
+    asdf plugin-add php
+  fi
+
+  # Install the latest stable PHP version
+  local latest_php
+  latest_php=$(asdf list-all php | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | tail -1)
+  if ! asdf list php | grep -Fq "$latest_php"; then
+    fancy_echo "Installing PHP $latest_php ..."
+    asdf install php "$latest_php"
+    asdf global php "$latest_php"
+    fancy_echo "PHP $latest_php installed and set as global version."
+  else
+    fancy_echo "Latest PHP $latest_php is already installed."
+  fi
+}
+
 # Main Execution
 fancy_echo "Starting setup..."
 
 # Install Homebrew and MAS packages
 install_homebrew_packages
 
-# Install and configure latest version of Python
+# Install and configure latest stable version of Python
 install_python
+
+# Install and configure latest stable version of PHP
+install_php
 
 # Source .zshrc
 fancy_echo "Sourcing $ZSHRC..."

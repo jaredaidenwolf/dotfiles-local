@@ -14,12 +14,12 @@ alias ls="eza -la --git --no-user --hyperlink"
 # Git
 alias gs="git status"
 alias gco="git checkout"
-alias gc="git commit"
+alias ga="git add ."
+alias gc="git commit -m"
 alias gp="git push"
 alias gpu="git pull"
 alias gb="git branch"
-alias gl="git log --pretty=colored"
+alias gl="git log"
 
-# PostgreSQL
-alias pg14="brew services stop postgresql@16 && brew services start postgresql@14 && brew services list"
-alias pg16="brew services stop postgresql@14 && brew services start postgresql@16 && brew services list"
+# Shopify
+alias sh="shopify theme dev --environment=development"
