@@ -23,3 +23,7 @@ alias gl="git log"
 
 # Shopify
 alias sh="shopify theme dev --environment=development"
+
+# PostgreSQL
+alias pg14="brew services stop postgresql@17 && brew services start postgresql@14 && brew services list"
+alias pg17="brew services stop postgresql@14 && brew services start postgresql@17 && brew services list"

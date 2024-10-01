@@ -10,6 +10,7 @@ install_homebrew_packages() {
   fancy_echo "Installing Homebrew and MAS packages ..."
   brew bundle --file=- <<EOF
 brew "bat"
+brew "chromedriver"
 brew "eza"
 brew "mas"
 brew "postgresql@17"
