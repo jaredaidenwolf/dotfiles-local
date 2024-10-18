@@ -1,5 +1,6 @@
 [core]
   editor = vim
+  ignorecase = false
 [difftool "Kaleidoscope"]
   cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [difftool]
