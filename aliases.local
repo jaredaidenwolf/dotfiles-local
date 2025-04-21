@@ -6,7 +6,7 @@ alias bsl="brew services list"
 
 # Bundler
 alias bi="bundle install"
-alias beg="bundle exec guard"
+alias beg="bundle exec guard -g light"
 
 # Exa
 alias ls="eza -la --git --no-user --hyperlink"
@@ -32,3 +32,4 @@ alias pg17="brew services stop postgresql@14 && brew services start postgresql@1
 
 alias br="bin/rails"
 alias brs="bin/rails s"
+alias brt="bin/rails tmp:clear"
