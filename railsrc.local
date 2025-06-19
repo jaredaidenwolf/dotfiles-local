@@ -1,0 +1,6 @@
+--database=postgresql
+--skip-test
+--skip-rubocop
+--css=tailwind
+--javascript=esbuild
+--skip-jbuilder
