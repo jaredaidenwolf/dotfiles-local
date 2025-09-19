@@ -10,40 +10,47 @@ install_homebrew_packages() {
   fancy_echo "Installing Homebrew and MAS packages ..."
   brew bundle --file=- <<EOF
 brew "bat"
-brew "chromedriver"
 brew "eza"
+brew "gh"
+brew "git"
+brew "heroku"
 brew "mas"
-brew "postgresql@14"
 brew "postgresql@17"
 brew "shellcheck"
 brew "spaceship"
 brew "sqlite"
 brew "the_silver_searcher"
+brew "tree"
+brew "yarn"
 brew "zoxide"
 cask "1password"
 cask "airbuddy"
 cask "backblaze"
+cask "claude"
 cask "cursor"
-cask "docker"
+cask "cursor-cli"
+cask "docker-desktop"
 cask "downie"
 cask "firefox"
 cask "firefox@developer-edition"
 cask "google-chrome"
 cask "imageoptim"
-cask "kaleidoscope"
 cask "local"
 cask "ngrok"
 cask "obsidian"
 cask "permute"
+cask "polypane"
 cask "postman"
+cask "rar"
 cask "raycast"
 cask "readdle-spark"
 cask "replacicon"
+cask "simple-comic"
 cask "slack"
 cask "sublime-text"
 cask "tableplus"
-cask "transmit"
 cask "the-unarchiver"
+cask "transmit"
 cask "transnomino"
 cask "utm"
 cask "warp"
@@ -52,7 +59,6 @@ cask "font-fira-code-nerd-font"
 cask "font-fira-mono-nerd-font"
 mas "Endel", id: 1346247457
 mas "Fantastical", id: 975937182
-mas "Kindle", id: 302584613
 mas "Harvest", id: 506189836
 mas "Things", id: 904280696
 mas "xScope 4", id: 889428659
@@ -88,34 +94,6 @@ install_python() {
   fi
 }
 
-install_php() {
-  fancy_echo "Configuring asdf for PHP ..."
-  if [ ! -d "$HOME/.asdf" ]; then
-    brew install asdf
-    append_to_zshrc "source \"$(brew --prefix asdf)/libexec/asdf.sh\""
-    . "$ZSHRC"
-  else
-    fancy_echo "ASDF is already installed."
-  fi
-
-  # Install PHP plugin for asdf
-  if ! asdf plugin-list | grep -Fq "php"; then
-    asdf plugin-add php
-  fi
-
-  # Install the latest stable PHP version
-  local latest_php
-  latest_php=$(asdf list-all php | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | tail -1)
-  if ! asdf list php | grep -Fq "$latest_php"; then
-    fancy_echo "Installing PHP $latest_php ..."
-    asdf install php "$latest_php"
-    asdf global php "$latest_php"
-    fancy_echo "PHP $latest_php installed and set as global version."
-  else
-    fancy_echo "Latest PHP $latest_php is already installed."
-  fi
-}
-
 # Main Execution
 fancy_echo "Starting setup..."
 
@@ -124,9 +102,6 @@ install_homebrew_packages
 
 # Install and configure latest stable version of Python
 install_python
-
-# Install and configure latest stable version of PHP
-install_php
 
 # Source .zshrc
 fancy_echo "Sourcing $ZSHRC..."
