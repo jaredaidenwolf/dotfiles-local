@@ -32,9 +32,4 @@ alias pg17="brew services stop postgresql@14 && brew services start postgresql@1
 alias br="bin/rails"
 alias brs="bin/rails s"
 alias brt="bin/rails tmp:clear"
-
-# Windsurf
-alias code="windsurf"
-
-# Task Master
-alias tm="task-master"
+alias bd="bin/dev"
