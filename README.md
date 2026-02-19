@@ -6,6 +6,13 @@ My personal dotfiles. Extends [thoughtbot/dotfiles](https://github.com/thoughtbo
 
 If [rcm](https://github.com/thoughtbot/rcm) is not already installed:
 
+Install Homebrew (if not already installed):
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+Install rcm:
+
 ```bash
 brew install rcm
 ```
@@ -34,9 +41,6 @@ rcup
 Your laptop customizations should go in `dotfiles-local/laptop.local`.
 
 After completing the above dotfiles installation (including `laptop.local`), you can install [thoughtbot/laptop](https://github.com/thoughtbot/laptop) by running:
-
-> [!IMPORTANT]
-> Always read scripts before running them! It's like reading the terms and conditions...except you really should do it.
 
 ```bash
 curl -o ~/mac https://raw.githubusercontent.com/thoughtbot/laptop/main/mac

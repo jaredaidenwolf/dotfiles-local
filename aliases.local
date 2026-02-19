@@ -13,6 +13,7 @@ alias ls="eza -la --git --no-user --hyperlink"
 
 # Git
 alias gs="git status --short"
+alias gs!="git status"
 alias gco="git checkout"
 alias ga="git add ."
 alias gc="git commit -m"
@@ -24,12 +25,8 @@ alias gl="git log"
 # Shopify
 alias sh="shopify theme dev --environment=development"
 
-# PostgreSQL
-alias pg14="brew services stop postgresql@17 && brew services start postgresql@14 && brew services list"
-alias pg17="brew services stop postgresql@14 && brew services start postgresql@17 && brew services list"
-
 # Rails
 alias br="bin/rails"
 alias brs="bin/rails s"
 alias brt="bin/rails tmp:clear"
-alias bd="bin/dev"
+alias bd="./bin/dev"
