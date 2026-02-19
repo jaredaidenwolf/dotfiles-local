@@ -9,11 +9,13 @@ fancy_echo() {
 install_homebrew_packages() {
   fancy_echo "Installing Homebrew and MAS packages ..."
   brew bundle --file=- <<EOF
+brew "asdf"
 brew "bat"
 brew "eza"
 brew "gh"
 brew "git"
 brew "heroku"
+brew "imagemagick"
 brew "mas"
 brew "postgresql@17"
 brew "shellcheck"
@@ -26,24 +28,26 @@ brew "zoxide"
 cask "1password"
 cask "airbuddy"
 cask "backblaze"
+cask "calibre"
+cask "chatgpt"
 cask "claude"
+cask "cleanmymac"
+cask "comictagger"
 cask "cursor"
-cask "cursor-cli"
+cask "discord"
 cask "docker-desktop"
-cask "downie"
 cask "firefox"
 cask "firefox@developer-edition"
 cask "google-chrome"
 cask "imageoptim"
 cask "local"
-cask "ngrok"
 cask "obsidian"
-cask "permute"
-cask "polypane"
 cask "postman"
+cask "raindropio"
 cask "rar"
+cask "raspberry-pi-imager"
 cask "raycast"
-cask "readdle-spark"
+cask "reader"
 cask "replacicon"
 cask "simple-comic"
 cask "slack"
@@ -66,6 +70,7 @@ EOF
   brew cleanup
 }
 
+# Python via asdf
 install_python() {
   fancy_echo "Configuring asdf for Python ..."
   if [ ! -d "$HOME/.asdf" ]; then
@@ -94,6 +99,15 @@ install_python() {
   fi
 }
 
+# Ruby via asdf
+
+
+# Node via asdf
+
+
+# Yarn via asdf
+
+
 # Main Execution
 fancy_echo "Starting setup..."
 
@@ -108,4 +122,4 @@ fancy_echo "Sourcing $ZSHRC..."
 . "$ZSHRC"
 
 # All done!
-fancy_echo "All done! Your development environment is ready."
+fancy_echo "All done! Your laptop is ready."

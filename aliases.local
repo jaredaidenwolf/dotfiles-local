@@ -12,7 +12,7 @@ alias beg="bundle exec guard"
 alias ls="eza -la --git --no-user --hyperlink"
 
 # Git
-alias gs="git status"
+alias gs="git status --short"
 alias gco="git checkout"
 alias ga="git add ."
 alias gc="git commit -m"
