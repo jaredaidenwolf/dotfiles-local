@@ -8,8 +8,9 @@ alias bsl="brew services list"
 alias bi="bundle install"
 alias beg="bundle exec guard"
 
-# Exa
+# Eza
 alias ls="eza -la --git --no-user --hyperlink"
+alias tree="eza --tree"
 
 # Git
 alias gs="git status --short"
