@@ -2,6 +2,13 @@
 
 My personal dotfiles. Extends [thoughtbot/dotfiles](https://github.com/thoughtbot/dotfiles).
 
+## Requirements
+
+* macOS Tahoe (16.x) on Apple Silicon and Intel
+* macOS Sequoia (15.x) on Apple Silicon and Intel
+* macOS Sonoma (14.x) on Apple Silicon and Intel
+* macOS Ventura (13.x) on Apple Silicon and Intel
+
 ## Installation
 
 If [rcm](https://github.com/thoughtbot/rcm) is not already installed:
@@ -29,14 +36,14 @@ git pull
 rcup
 ```
 
-## Use in conjunction with [thoughtbot/laptop](https://github.com/thoughtbot/laptop)
+## Use in conjunction with [jaredaidenwolf/laptop](https://github.com/jaredaidenwolf/laptop)
 
 Your laptop customizations should go in `dotfiles-local/laptop.local`.
 
-After completing the above dotfiles installation (including `laptop.local`), you can install [thoughtbot/laptop](https://github.com/thoughtbot/laptop) by running:
+After completing the above dotfiles installation (including `laptop.local`), you can install [jaredaidenwolf/laptop](https://github.com/jaredaidenwolf/laptop) by running:
 
 ```bash
-curl -o ~/mac https://raw.githubusercontent.com/thoughtbot/laptop/main/mac
+curl -o ~/mac https://raw.githubusercontent.com/jaredaidenwolf/laptop/main/mac
 sh mac 2>&1 | tee ~/laptop.log
 ```
 

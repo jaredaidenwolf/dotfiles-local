@@ -23,9 +23,6 @@ alias gpu="git pull"
 alias gb="git branch"
 alias gl="git log"
 
-# Shopify
-alias sh="shopify theme dev --environment=development"
-
 # Rails
 alias br="bin/rails"
 alias brs="bin/rails s"
