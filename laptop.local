@@ -1,6 +1,10 @@
+# Install Homebrew packages and MAS apps
 install_homebrew_packages() {
   fancy_echo "Installing Homebrew and MAS packages ..."
   brew bundle --file=- <<EOF
+###############################################################################
+# Command Line Tools                                                          #
+###############################################################################
 brew "bat"
 brew "eza"
 brew "mas"
@@ -8,42 +12,74 @@ brew "shellcheck"
 brew "spaceship"
 brew "sqlite"
 brew "zoxide"
+
+###############################################################################
+# Development                                                                 #
+###############################################################################
+cask "cursor"
+cask "docker-desktop"
+cask "local"
+cask "postman"
+cask "sublime-text"
+cask "tableplus"
+cask "utm"
+cask "warp"
+
+###############################################################################
+# Productivity                                                                #
+###############################################################################
 cask "1password"
+cask "obsidian"
+cask "raycast"
+cask "raindropio"
+cask "reader"
+
+###############################################################################
+# Communication                                                               #
+###############################################################################
+cask "chatgpt"
+cask "claude"
+cask "discord"
+cask "slack"
+cask "zoom"
+
+###############################################################################
+# Browsers                                                                    #
+###############################################################################
+cask "firefox@developer-edition"
+cask "google-chrome"
+
+###############################################################################
+# Media                                                                       #
+###############################################################################
+cask "calibre"
+cask "comictagger"
+cask "imageoptim"
+cask "rar"
+cask "simple-comic"
+
+###############################################################################
+# Utilities                                                                   #
+###############################################################################
 cask "airbuddy"
 cask "backblaze"
 cask "badgeify"
-cask "calibre"
-cask "chatgpt"
-cask "claude"
 cask "cleanmymac"
-cask "comictagger"
-cask "cursor"
-cask "discord"
-cask "docker-desktop"
-cask "firefox@developer-edition"
-cask "google-chrome"
-cask "imageoptim"
-cask "local"
-cask "obsidian"
-cask "postman"
-cask "raindropio"
-cask "rar"
 cask "raspberry-pi-imager"
-cask "raycast"
-cask "reader"
 cask "replacicon"
-cask "simple-comic"
-cask "slack"
-cask "sublime-text"
-cask "tableplus"
 cask "the-unarchiver"
 cask "transmit"
 cask "transnomino"
-cask "utm"
-cask "warp"
-cask "zoom"
+
+###############################################################################
+# Fonts                                                                       #
+###############################################################################
 cask "font-fira-code-nerd-font"
 cask "font-fira-mono-nerd-font"
+
+###############################################################################
+# Mac App Store                                                               #
+###############################################################################
 mas "Endel", id: 1346247457
 mas "Fantastical", id: 975937182
 mas "Harvest", id: 506189836
@@ -53,18 +89,24 @@ EOF
   brew cleanup
 }
 
-# Python via asdf
+# Install Python via asdf
 install_python() {
   fancy_echo "Configuring asdf for Python ..."
 
-  # Install Python plugin for asdf
+  ###############################################################################
+  # Plugin                                                                      #
+  ###############################################################################
+
   if ! asdf plugin list | grep -Fq "python"; then
     asdf plugin add python
   else
     asdf plugin update python
   fi
 
-  # Install the latest stable Python version
+  ###############################################################################
+  # Version                                                                     #
+  ###############################################################################
+
   local latest_python
   latest_python=$(asdf list all python | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | tail -1)
   if ! asdf list python | grep -Fq "$latest_python"; then
@@ -77,7 +119,240 @@ install_python() {
   fi
 }
 
-# Main Execution
+# macOS System Defaults
+configure_macos_defaults() {
+  fancy_echo "Configuring macOS defaults ..."
+
+  ###############################################################################
+  # Screenshots                                                                 #
+  ###############################################################################
+
+  # Create screenshots folder if it doesn't exist
+  mkdir -p "${HOME}/Downloads/Screenshots"
+  # Save screenshots to ~/Downloads/Screenshots
+  defaults write com.apple.screencapture location -string "${HOME}/Downloads/Screenshots"
+  # Save screenshots as PNG (options: BMP, GIF, JPG, PDF, TIFF)
+  defaults write com.apple.screencapture type -string "png"
+  # Disable drop shadow in screenshots
+  defaults write com.apple.screencapture disable-shadow -bool true
+  # Don't show floating thumbnail after capture
+  defaults write com.apple.screencapture show-thumbnail -bool false
+
+  ###############################################################################
+  # Appearance                                                                  #
+  ###############################################################################
+
+  # Enable Dark Mode
+  defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+  # Reduce transparency (System Settings → Accessibility → Display)
+  defaults write com.apple.universalaccess reduceTransparency -bool true
+  # Reduce wallpaper tinting in windows
+  defaults write NSGlobalDomain AppleReduceDesktopTinting -bool true
+
+  ###############################################################################
+  # Dock                                                                        #
+  ###############################################################################
+
+  # Set icon size (minimum is 16)
+  defaults write com.apple.dock tilesize -int 16
+  # Position on the left (options: bottom, left, right)
+  defaults write com.apple.dock orientation -string "left"
+  # Enable auto-hide
+  defaults write com.apple.dock autohide -bool true
+  # Remove auto-hide delay
+  defaults write com.apple.dock autohide-delay -float 0
+  # Don't show recently used apps
+  defaults write com.apple.dock show-recents -bool false
+  # Disable launch animation bounce
+  defaults write com.apple.dock launchanim -bool false
+  # Don't automatically rearrange Spaces based on most recent use
+  defaults write com.apple.dock mru-spaces -bool false
+  # Disable spread-fingers gesture to show Desktop
+  defaults write com.apple.dock showDesktopGestureEnabled -bool false
+  # Disable pinch gesture to show Launchpad
+  defaults write com.apple.dock showLaunchpadGestureEnabled -bool false
+  # Hot corners
+  # Values: 0=off, 2=Mission Control, 3=Application Windows, 4=Desktop,
+  #         5=Start Screen Saver, 6=Disable Screen Saver, 10=Sleep Display,
+  #         11=Launchpad, 13=Lock Screen, 14=Quick Note
+  defaults write com.apple.dock wvous-tl-corner -int 0    # top-left: disabled
+  defaults write com.apple.dock wvous-tl-modifier -int 0
+  defaults write com.apple.dock wvous-tr-corner -int 6    # top-right: disable screen saver
+  defaults write com.apple.dock wvous-tr-modifier -int 0
+  defaults write com.apple.dock wvous-bl-corner -int 10   # bottom-left: sleep display
+  defaults write com.apple.dock wvous-bl-modifier -int 0
+  defaults write com.apple.dock wvous-br-corner -int 5    # bottom-right: start screen saver
+  defaults write com.apple.dock wvous-br-modifier -int 0
+
+  ###############################################################################
+  # Finder                                                                      #
+  ###############################################################################
+
+  # Show all filename extensions
+  defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+  # Show path bar
+  defaults write com.apple.finder ShowPathbar -bool true
+  # Show status bar
+  defaults write com.apple.finder ShowStatusBar -bool true
+  # Use list view by default (options: Nlsv, icnv, clmv, glyv)
+  defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+  # Search the current folder by default (instead of "This Mac")
+  defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+  # Open new windows to Downloads (PfLo = custom path)
+  defaults write com.apple.finder NewWindowTarget -string "PfLo"
+  defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Downloads/"
+  # Don't show drives or media on the desktop
+  defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
+  defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
+  defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+  # Don't show recent tags in sidebar
+  defaults write com.apple.finder ShowRecentTags -bool false
+  # Skip the warning before emptying the Trash
+  defaults write com.apple.finder WarnOnEmptyTrash -bool false
+  # Don't create .DS_Store files on network shares or USB drives
+  defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+  defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+  ###############################################################################
+  # Spotlight                                                                   #
+  ###############################################################################
+
+  # Disable all Spotlight result categories (using Raycast instead)
+  defaults write com.apple.Spotlight orderedItems -array \
+    '{ enabled = 0; name = APPLICATIONS; }' \
+    '{ enabled = 0; name = "MENU_EXPRESSION"; }' \
+    '{ enabled = 0; name = CONTACT; }' \
+    '{ enabled = 0; name = "MENU_CONVERSION"; }' \
+    '{ enabled = 0; name = "MENU_DEFINITION"; }' \
+    '{ enabled = 0; name = DOCUMENTS; }' \
+    '{ enabled = 0; name = "EVENT_TODO"; }' \
+    '{ enabled = 0; name = DIRECTORIES; }' \
+    '{ enabled = 0; name = FONTS; }' \
+    '{ enabled = 0; name = IMAGES; }' \
+    '{ enabled = 0; name = MESSAGES; }' \
+    '{ enabled = 0; name = MOVIES; }' \
+    '{ enabled = 0; name = MUSIC; }' \
+    '{ enabled = 0; name = "MENU_OTHER"; }' \
+    '{ enabled = 0; name = PDF; }' \
+    '{ enabled = 0; name = PRESENTATIONS; }' \
+    '{ enabled = 0; name = "MENU_SPOTLIGHT_SUGGESTIONS"; }' \
+    '{ enabled = 0; name = SPREADSHEETS; }' \
+    '{ enabled = 0; name = "SYSTEM_PREFS"; }' \
+    '{ enabled = 0; name = TIPS; }' \
+    '{ enabled = 0; name = BOOKMARKS; }'
+
+  ###############################################################################
+  # Windows & Desktop                                                           #
+  ###############################################################################
+
+  # Don't zoom or minimize on title bar double-click
+  defaults write NSGlobalDomain AppleActionOnDoubleClick -string "None"
+  defaults write NSGlobalDomain AppleMiniaturizeOnDoubleClick -bool false
+  # Expand save panel by default
+  defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+  defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+  # Don't default to saving new documents to iCloud
+  defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+  # Hide desktop icons
+  defaults write com.apple.WindowManager StandardHideDesktopIcons -bool true
+  defaults write com.apple.WindowManager HideDesktop -bool true
+  # Disable click on desktop to reveal desktop items
+  defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+  # No gap between tiled windows
+  defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
+
+  ###############################################################################
+  # Mission Control & Spaces                                                    #
+  ###############################################################################
+
+  # Don't switch to a Space with open windows when switching apps
+  defaults write NSGlobalDomain AppleSpacesSwitchOnActivate -bool false
+  # Full keyboard access (Tab moves focus to all controls, not just text/lists)
+  defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
+
+  ###############################################################################
+  # Trackpad                                                                    #
+  ###############################################################################
+
+  # Disable Force Click and Haptic Feedback
+  defaults write NSGlobalDomain com.apple.trackpad.forceClick -bool false
+  defaults write com.apple.AppleMultitouchTrackpad ForceSuppressed -bool true
+  # Disable pinch-to-zoom gesture
+  defaults write com.apple.AppleMultitouchTrackpad TrackpadPinch -bool false
+  # Disable Smart Zoom (two-finger double-tap)
+  defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerDoubleTapGesture -bool false
+  # Disable swipe from right edge to show Notification Center
+  defaults write com.apple.AppleMultitouchTrackpad TrackpadTwoFingerFromRightEdgeSwipeGesture -int 0
+  # Disable swipe to navigate (back/forward in Safari etc.)
+  defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool false
+  # Scroll speed
+  defaults write NSGlobalDomain com.apple.scrollwheel.scaling -float 0.215
+
+  ###############################################################################
+  # Keyboard                                                                    #
+  ###############################################################################
+
+  # Set a fast key repeat rate (lower is faster; minimum is 1)
+  defaults write NSGlobalDomain KeyRepeat -int 2
+  # Shorten delay before key repeat kicks in
+  defaults write NSGlobalDomain InitialKeyRepeat -int 15
+  # Disable press-and-hold accent menu in favor of key repeat
+  defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+  ###############################################################################
+  # Text Input                                                                  #
+  ###############################################################################
+
+  # Disable auto-correct
+  defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+  # Disable auto-capitalize
+  defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+  # Disable smart dashes (-- → —)
+  defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+  # Disable smart quotes (" → ")
+  defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+  # Disable period substitution (double-space → period)
+  defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+  ###############################################################################
+  # Menu Bar                                                                    #
+  ###############################################################################
+
+  # Clock: show AM/PM, show day of week, show date
+  defaults write com.apple.menuextra.clock ShowAMPM -bool true
+  defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true
+  defaults write com.apple.menuextra.clock ShowDate -bool true
+
+  ###############################################################################
+  # Developer Tools                                                             #
+  ###############################################################################
+
+  # Show crash reports as notifications instead of dialogs
+  defaults write com.apple.CrashReporter DialogType -string "notification"
+  # Activity Monitor: show all processes (not just current user)
+  defaults write com.apple.ActivityMonitor ShowCategory -int 0
+
+  ###############################################################################
+  # Wallpaper                                                                   #
+  ###############################################################################
+
+  # Set solid black wallpaper on all desktops
+  # Note: defaults write is unreliable for wallpaper on Tahoe; using osascript instead
+  osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
+
+  ###############################################################################
+  # Apply changes                                                               #
+  ###############################################################################
+
+  killall Dock
+  killall Finder
+  killall SystemUIServer
+}
+
+###############################################################################
+# Main Execution                                                              #
+###############################################################################
+
 fancy_echo "Starting setup..."
 
 # Install Homebrew and MAS packages
@@ -86,5 +361,7 @@ install_homebrew_packages
 # Install and configure latest stable version of Python
 install_python
 
-# All done!
+# Configure macOS system preferences
+configure_macos_defaults
+
 fancy_echo "All done! Your laptop is ready."
