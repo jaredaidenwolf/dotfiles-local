@@ -17,7 +17,9 @@ brew "git"
 brew "heroku"
 brew "imagemagick"
 brew "mas"
+brew "openssl@3"
 brew "postgresql@17"
+brew "rcm"
 brew "shellcheck"
 brew "spaceship"
 brew "sqlite"
@@ -28,6 +30,7 @@ brew "zoxide"
 cask "1password"
 cask "airbuddy"
 cask "backblaze"
+cask "badgeify
 cask "calibre"
 cask "chatgpt"
 cask "claude"
@@ -99,7 +102,11 @@ install_python() {
   fi
 }
 
+
 # Ruby via asdf
+
+
+# Bundler via asdf
 
 
 # Node via asdf
