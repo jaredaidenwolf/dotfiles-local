@@ -1,7 +1,7 @@
 # Install Homebrew packages and MAS apps
 install_homebrew_packages() {
   fancy_echo "Installing Homebrew and MAS packages ..."
-  brew bundle --file=- <<EOF
+  brew bundle --verbose --file=- <<EOF
 ###############################################################################
 # Command Line Tools                                                          #
 ###############################################################################
