@@ -4,10 +4,7 @@ My personal dotfiles. Extends [thoughtbot/dotfiles](https://github.com/thoughtbo
 
 ## Requirements
 
-* macOS Tahoe (16.x) on Apple Silicon and Intel
-* macOS Sequoia (15.x) on Apple Silicon and Intel
-* macOS Sonoma (14.x) on Apple Silicon and Intel
-* macOS Ventura (13.x) on Apple Silicon and Intel
+- A recent version of macOS on Apple Silicon (not tested on Intel)
 
 ## Installation
 
@@ -52,6 +49,10 @@ Once complete, you can delete the `mac` script:
 ```bash
 rm ~/mac
 ```
+
+## Known Issues
+
+- `configure_macos_defaults` in `laptop.local` is currently disabled (WIP). macOS system preferences must be configured manually until the defaults errors are resolved.
 
 ## Testing
 

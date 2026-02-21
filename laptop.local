@@ -363,6 +363,7 @@ install_homebrew_packages
 install_python
 
 # Configure macOS system preferences
-configure_macos_defaults
+# TODO: configure_macos_defaults is WIP — commented out until defaults errors are resolved
+# configure_macos_defaults
 
 fancy_echo "All done! Your laptop is ready."
