@@ -345,9 +345,9 @@ configure_macos_defaults() {
   # Apply changes                                                               #
   ###############################################################################
 
-  killall Dock
-  killall Finder
-  killall SystemUIServer
+  killall Dock || true
+  killall Finder || true
+  killall SystemUIServer || true
 }
 
 ###############################################################################
