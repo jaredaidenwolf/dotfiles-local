@@ -4,14 +4,13 @@ export PATH="$HOME/.bin:$PATH"
 eval "$(zoxide init zsh)"
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Preferred editing application
-export EDITOR="code --wait"
+FZF_CTRL_C_COMMAND= FZF_ALT_R_COMMAND= FZF_ALT_T_COMMAND= source <(fzf --zsh)
 
 # Case insensitive completion
 zstyle ":completion:*" matcher-list "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=* l:|=* r:|=*"
 
+# Spaceship
+source /opt/homebrew/opt/spaceship/spaceship.zsh
+
 # ASDF
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 source /opt/homebrew/opt/asdf/libexec/asdf.sh

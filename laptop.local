@@ -18,8 +18,7 @@ brew "zoxide"
 ###############################################################################
 cask "claude-code"
 cask "cursor"
-cask "docker-desktop"
-cask "local"
+cask "orbstack"
 cask "postman"
 cask "sublime-text"
 cask "tableplus"
@@ -32,15 +31,11 @@ cask "warp"
 cask "1password"
 cask "obsidian"
 cask "raycast"
-cask "raindropio"
-cask "reader"
 
 ###############################################################################
 # Communication                                                               #
 ###############################################################################
-cask "chatgpt"
 cask "claude"
-cask "discord"
 cask "slack"
 cask "zoom"
 
@@ -53,7 +48,6 @@ cask "google-chrome"
 ###############################################################################
 # Media                                                                       #
 ###############################################################################
-cask "calibre"
 cask "comictagger"
 cask "imageoptim"
 cask "rar"
@@ -65,11 +59,8 @@ cask "simple-comic"
 cask "airbuddy"
 cask "backblaze"
 cask "badgeify"
-cask "cleanmymac"
 cask "raspberry-pi-imager"
-cask "replacicon"
 cask "the-unarchiver"
-cask "transmit"
 cask "transnomino"
 
 ###############################################################################
@@ -82,7 +73,6 @@ cask "font-fira-mono-nerd-font"
 # Mac App Store                                                               #
 ###############################################################################
 mas "Endel", id: 1346247457
-mas "Fantastical", id: 975937182
 mas "Harvest", id: 506189836
 mas "Things", id: 904280696
 mas "xScope 4", id: 889428659
@@ -128,10 +118,8 @@ configure_macos_defaults() {
   # Screenshots                                                                 #
   ###############################################################################
 
-  # Create screenshots folder if it doesn't exist
-  mkdir -p "${HOME}/Downloads/Screenshots"
   # Save screenshots to ~/Downloads/Screenshots
-  defaults write com.apple.screencapture location -string "${HOME}/Downloads/Screenshots"
+  defaults write com.apple.screencapture location -string "${HOME}/Downloads"
   # Save screenshots as PNG (options: BMP, GIF, JPG, PDF, TIFF)
   defaults write com.apple.screencapture type -string "png"
   # Disable drop shadow in screenshots
