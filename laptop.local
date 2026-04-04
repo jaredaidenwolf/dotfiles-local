@@ -157,9 +157,9 @@ configure_macos_defaults() {
   # Don't automatically rearrange Spaces based on most recent use
   defaults write com.apple.dock mru-spaces -bool false
   # Disable spread-fingers gesture to show Desktop
-  defaults write com.apple.dock showDesktopGestureEnabled -bool false
+  defaults write com.apple.dock showDesktopGestureEnabled -bool false || true
   # Disable pinch gesture to show Launchpad
-  defaults write com.apple.dock showLaunchpadGestureEnabled -bool false
+  defaults write com.apple.dock showLaunchpadGestureEnabled -bool false || true
   # Hot corners
   # Values: 0=off, 2=Mission Control, 3=Application Windows, 4=Desktop,
   #         5=Start Screen Saver, 6=Disable Screen Saver, 10=Sleep Display,
@@ -206,29 +206,9 @@ configure_macos_defaults() {
   # Spotlight                                                                   #
   ###############################################################################
 
-  # Disable all Spotlight result categories (using Raycast instead)
-  defaults write com.apple.Spotlight orderedItems -array \
-    '{ enabled = 0; name = APPLICATIONS; }' \
-    '{ enabled = 0; name = "MENU_EXPRESSION"; }' \
-    '{ enabled = 0; name = CONTACT; }' \
-    '{ enabled = 0; name = "MENU_CONVERSION"; }' \
-    '{ enabled = 0; name = "MENU_DEFINITION"; }' \
-    '{ enabled = 0; name = DOCUMENTS; }' \
-    '{ enabled = 0; name = "EVENT_TODO"; }' \
-    '{ enabled = 0; name = DIRECTORIES; }' \
-    '{ enabled = 0; name = FONTS; }' \
-    '{ enabled = 0; name = IMAGES; }' \
-    '{ enabled = 0; name = MESSAGES; }' \
-    '{ enabled = 0; name = MOVIES; }' \
-    '{ enabled = 0; name = MUSIC; }' \
-    '{ enabled = 0; name = "MENU_OTHER"; }' \
-    '{ enabled = 0; name = PDF; }' \
-    '{ enabled = 0; name = PRESENTATIONS; }' \
-    '{ enabled = 0; name = "MENU_SPOTLIGHT_SUGGESTIONS"; }' \
-    '{ enabled = 0; name = SPREADSHEETS; }' \
-    '{ enabled = 0; name = "SYSTEM_PREFS"; }' \
-    '{ enabled = 0; name = TIPS; }' \
-    '{ enabled = 0; name = BOOKMARKS; }'
+  # Disable Spotlight indexing entirely (using Raycast instead)
+  # mdutil works without SIP concerns, unlike defaults write com.apple.Spotlight
+  sudo mdutil -a -i off || true
 
   ###############################################################################
   # Windows & Desktop                                                           #
@@ -308,9 +288,11 @@ configure_macos_defaults() {
   ###############################################################################
 
   # Clock: show AM/PM, show day of week, show date
-  defaults write com.apple.menuextra.clock ShowAMPM -bool true
-  defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true
-  defaults write com.apple.menuextra.clock ShowDate -bool true
+  # Note: com.apple.menuextra.clock was deprecated in Ventura; these may have
+  # no effect on Sequoia/Tahoe — configure manually via System Settings if needed
+  defaults write com.apple.menuextra.clock ShowAMPM -bool true || true
+  defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true || true
+  defaults write com.apple.menuextra.clock ShowDate -bool true || true
 
   ###############################################################################
   # Developer Tools                                                             #
@@ -327,7 +309,7 @@ configure_macos_defaults() {
 
   # Set solid black wallpaper on all desktops
   # Note: defaults write is unreliable for wallpaper on Tahoe; using osascript instead
-  osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Solid Colors/Black.png"'
+  osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Solid Colors/Black Color.png"' || true
 
   ###############################################################################
   # Apply changes                                                               #
@@ -335,7 +317,7 @@ configure_macos_defaults() {
 
   killall Dock || true
   killall Finder || true
-  killall SystemUIServer || true
+  killall ControlCenter || true
 }
 
 ###############################################################################
@@ -351,7 +333,6 @@ install_homebrew_packages
 install_python
 
 # Configure macOS system preferences
-# TODO: configure_macos_defaults is WIP — commented out until defaults errors are resolved
-# configure_macos_defaults
+configure_macos_defaults || fancy_echo "Warning: some macOS defaults failed to apply."
 
 fancy_echo "All done! Your laptop is ready."
