@@ -1,10 +1,13 @@
 export PATH="$HOME/.bin:$PATH"
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 # zoxide
 eval "$(zoxide init zsh)"
 
 # fzf
-FZF_CTRL_C_COMMAND= FZF_ALT_R_COMMAND= FZF_ALT_T_COMMAND= source <(fzf --zsh)
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= source <(fzf --zsh)
 
 # Case insensitive completion
 zstyle ":completion:*" matcher-list "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=* l:|=* r:|=*"

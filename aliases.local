@@ -1,5 +1,5 @@
 # Bat
-# alias cat="bat"
+alias cat="bat"
 
 # Brew
 alias bsl="brew services list"
@@ -9,7 +9,7 @@ alias bi="bundle install"
 alias beg="bundle exec guard"
 
 # Eza
-# alias ls="eza -la --git --no-user --hyperlink"
+alias ls="eza -la --git --no-user --hyperlink"
 alias tree="eza --tree"
 
 # Git
@@ -18,10 +18,15 @@ alias gs!="git status"
 alias gco="git checkout"
 alias ga="git add ."
 alias gc="git commit -m"
+alias gd="git diff"
 alias gp="git push"
 alias gpu="git pull"
 alias gb="git branch"
 alias gl="git log"
+
+# Neovim
+alias vi="nvim"
+alias vim="nvim"
 
 # Rails
 alias br="bin/rails"
