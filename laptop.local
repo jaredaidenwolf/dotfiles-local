@@ -118,8 +118,8 @@ install_python() {
   # Pip Packages                                                                #
   ###############################################################################
 
-  fancy_echo "Installing pip packages ..."
-  pip install comictagger
+  # fancy_echo "Installing pip packages ..."
+  # pip install comictagger
 }
 
 # macOS System Defaults
@@ -247,8 +247,6 @@ configure_macos_defaults() {
   defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
   # No gap between tiled windows
   defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
-  # Disable desktop widgets (Sonoma+; 0=off, 1=on, 2=on when desktop revealed)
-  defaults write com.apple.WindowManager showDesktopWidgets -int 0
 
   ###############################################################################
   # Mission Control & Spaces                                                    #
