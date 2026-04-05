@@ -107,6 +107,13 @@ install_python() {
   else
     fancy_echo "Latest Python $latest_python is already installed."
   fi
+
+  ###############################################################################
+  # Pip Packages                                                                #
+  ###############################################################################
+
+  fancy_echo "Installing pip packages ..."
+  pip install comictagger
 }
 
 # macOS System Defaults
@@ -117,6 +124,7 @@ configure_macos_defaults() {
   # Screenshots                                                                 #
   ###############################################################################
 
+  fancy_echo "  Screenshots ..."
   # Save screenshots to ~/Downloads/Screenshots
   defaults write com.apple.screencapture location -string "${HOME}/Downloads"
   # Save screenshots as PNG (options: BMP, GIF, JPG, PDF, TIFF)
@@ -130,6 +138,7 @@ configure_macos_defaults() {
   # Appearance                                                                  #
   ###############################################################################
 
+  fancy_echo "  Appearance ..."
   # Enable Dark Mode
   defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
   # Reduce transparency (System Settings → Accessibility → Display)
@@ -141,6 +150,7 @@ configure_macos_defaults() {
   # Dock                                                                        #
   ###############################################################################
 
+  fancy_echo "  Dock ..."
   # Set icon size (minimum is 16)
   defaults write com.apple.dock tilesize -int 16
   # Position on the left (options: bottom, left, right)
@@ -176,6 +186,7 @@ configure_macos_defaults() {
   # Finder                                                                      #
   ###############################################################################
 
+  fancy_echo "  Finder ..."
   # Show all filename extensions
   defaults write NSGlobalDomain AppleShowAllExtensions -bool true
   # Show path bar
@@ -205,6 +216,7 @@ configure_macos_defaults() {
   # Spotlight                                                                   #
   ###############################################################################
 
+  fancy_echo "  Spotlight ..."
   # Disable Spotlight indexing entirely (using Raycast instead)
   # mdutil works without SIP concerns, unlike defaults write com.apple.Spotlight
   sudo mdutil -a -i off || true
@@ -213,6 +225,7 @@ configure_macos_defaults() {
   # Windows & Desktop                                                           #
   ###############################################################################
 
+  fancy_echo "  Windows & Desktop ..."
   # Don't zoom or minimize on title bar double-click
   defaults write NSGlobalDomain AppleActionOnDoubleClick -string "None"
   defaults write NSGlobalDomain AppleMiniaturizeOnDoubleClick -bool false
@@ -228,11 +241,14 @@ configure_macos_defaults() {
   defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
   # No gap between tiled windows
   defaults write com.apple.WindowManager EnableTiledWindowMargins -bool false
+  # Disable desktop widgets (Sonoma+; 0=off, 1=on, 2=on when desktop revealed)
+  defaults write com.apple.WindowManager showDesktopWidgets -int 0
 
   ###############################################################################
   # Mission Control & Spaces                                                    #
   ###############################################################################
 
+  fancy_echo "  Mission Control & Spaces ..."
   # Don't switch to a Space with open windows when switching apps
   defaults write NSGlobalDomain AppleSpacesSwitchOnActivate -bool false
   # Full keyboard access (Tab moves focus to all controls, not just text/lists)
@@ -242,6 +258,7 @@ configure_macos_defaults() {
   # Trackpad                                                                    #
   ###############################################################################
 
+  fancy_echo "  Trackpad ..."
   # Disable Force Click and Haptic Feedback
   defaults write NSGlobalDomain com.apple.trackpad.forceClick -bool false
   defaults write com.apple.AppleMultitouchTrackpad ForceSuppressed -bool true
@@ -260,6 +277,7 @@ configure_macos_defaults() {
   # Keyboard                                                                    #
   ###############################################################################
 
+  fancy_echo "  Keyboard ..."
   # Set a fast key repeat rate (lower is faster; minimum is 1)
   defaults write NSGlobalDomain KeyRepeat -int 2
   # Shorten delay before key repeat kicks in
@@ -271,6 +289,7 @@ configure_macos_defaults() {
   # Text Input                                                                  #
   ###############################################################################
 
+  fancy_echo "  Text Input ..."
   # Disable auto-correct
   defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
   # Disable auto-capitalize
@@ -286,6 +305,7 @@ configure_macos_defaults() {
   # Menu Bar                                                                    #
   ###############################################################################
 
+  fancy_echo "  Menu Bar ..."
   # Clock: show AM/PM, show day of week, show date
   # Note: com.apple.menuextra.clock was deprecated in Ventura; these may have
   # no effect on Sequoia/Tahoe — configure manually via System Settings if needed
@@ -297,6 +317,7 @@ configure_macos_defaults() {
   # Developer Tools                                                             #
   ###############################################################################
 
+  fancy_echo "  Developer Tools ..."
   # Show crash reports as notifications instead of dialogs
   defaults write com.apple.CrashReporter DialogType -string "notification"
   # Activity Monitor: show all processes (not just current user)
@@ -306,6 +327,7 @@ configure_macos_defaults() {
   # Wallpaper                                                                   #
   ###############################################################################
 
+  fancy_echo "  Wallpaper ..."
   # Set solid black wallpaper on all desktops
   # Note: defaults write is unreliable for wallpaper on Tahoe; using osascript instead
   osascript -e 'tell application "System Events" to set picture of every desktop to "/System/Library/Desktop Pictures/Solid Colors/Black Color.png"' || true
@@ -314,6 +336,7 @@ configure_macos_defaults() {
   # Apply changes                                                               #
   ###############################################################################
 
+  fancy_echo "  Applying changes ..."
   killall Dock || true
   killall Finder || true
   killall ControlCenter || true
